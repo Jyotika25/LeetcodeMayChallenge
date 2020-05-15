@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+//create a unordered multiset
+        unordered_multiset <char> mags;
+//store all letters of magazine into unordered multiset
+        for(int i=0;i<magazine.size();i++){
+            mags.insert(magazine[i]);
+        }
+        /*traverse ransomenote string by each letter
+        if letter is found in multiset 
+        erase that letter from multiset by its index 
+        then keep checking till string ends
+        if all letters found in multiset return true
+        else return false*/
+        
+        for(int i=0;i<ransomNote.size();i++){
+            if(mags.find(ransomNote[i])!= mags.end())
+            {
+                mags.erase(mags.find(ransomNote[i]));
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+        
+    }
+};
