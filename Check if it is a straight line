@@ -1,0 +1,49 @@
+class Solution {
+public:
+    bool checkStraightLine(vector<vector<int>>& coordinates) {
+        
+        int m,num,den;
+        int i =2;
+        //for only two points , defo its straight line 
+        if(coordinates.size()==2)
+        {
+            return true;
+        }
+        
+        //num =y2-y1 
+        num = (coordinates[1][1]-coordinates[0][1]);
+        //den = x2-x1
+        den = (coordinates[1][0]-coordinates[0][0]);
+        
+        while(den == 0)
+        {
+            //check with all other points also
+            den = (coordinates[i][0] - coordinates[0][0]);
+            if(i == coordinates.size()-1)
+            {
+            return true; 
+            //vertical line slope infinite    
+            }
+            i=i+1;
+        }
+        
+        //slope
+        m = num/den;
+        
+        // check for line equation satifiablity by all points
+        
+        for(int i = 1;i < coordinates.size();i++)
+        {
+            //yn-y1 = m *(xn-x1)
+            
+            int lhseqn = coordinates[i][1]-coordinates[0][1];
+            int rhseqn =  m * (coordinates[i][0] - coordinates[0][0]);
+            
+            if(lhseqn!=rhseqn)
+            {
+                return false;    
+            }
+        }
+        return true;
+    }
+};
