@@ -1,0 +1,70 @@
+class Solution {
+public:
+    void smallest(string num , int k, string& res)
+    {
+        if(k==0)
+        {
+            res.append(num);
+        return;
+        }
+        
+        int len = num.length();
+        
+        if(len<=k)
+        {
+            return;
+        }
+        
+        int minindex = 0;
+        
+        for(int i=1;i<=k;i++)
+        {
+            if(num[i]<num[minindex])
+                minindex =i;
+        }
+        
+        res.push_back(num[minindex]);
+        string newnumber = num.substr(minindex+1, len-minindex);
+        smallest(newnumber , k-minindex , res);
+    }
+    
+    
+    string removeKdigits(string num, int k) {
+        
+        if(k==0) return num;
+        if(k>=num.size()) return "0";
+        
+        string res="";
+        smallest(num,k,res);
+        
+        if(res[0]!='0') return res;
+        
+        int count=0;
+        int n = res.size();
+        int i=0;
+        bool flag = true;
+        
+        while(flag==true)
+        {
+            count++;
+            
+            if(count == n)
+            {
+                return "0";
+            }
+            
+            if(res[i]=='0')
+            {
+                res.erase(i,1);
+            
+            }
+            if(res[i]!='0')
+            {
+                flag = false;
+            }
+            
+        }
+        
+        return res;
+    }
+};
