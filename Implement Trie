@@ -1,0 +1,110 @@
+class TrieNode{
+    public:
+    
+    int value;
+    TrieNode* children[26];
+    TrieNode()
+    {
+        value =0;
+        for(int i=0;i<26;i++)
+        {
+            children[i]=NULL;
+        }
+     }
+};
+
+
+// CLASS DESCRIBED IN QS
+
+class Trie {
+private: 
+    TrieNode* root;
+    
+public:
+    /** Initialize your data structure here. */
+    Trie() {
+        
+       root = new TrieNode(); 
+    }
+    
+    /** Inserts a word into the trie. */
+    void insert(string word) 
+    {   // initialised root value
+        TrieNode* p = root;
+        int len = word.size();
+        
+        for(int i=0;i<len;i++)
+        {
+            int index = word[i]-'a';
+            //if next node is empty fill it with character
+            if(!p->children[index])
+            {
+                p->children[index] = new TrieNode();
+            }
+            //root changes for new character
+            p = p->children[index];
+        }
+     //   out of loop added all letters
+        p->value = 1;
+        //marks end of 1 complete word
+    }
+    
+    /** Returns if the word is in the trie. */
+    bool search(string word) {
+       TrieNode* p = root;
+        int len = word.size();
+        
+        for(int i=0;i<len;i++)
+        {
+            int index = word[i]-'a';
+            //if we keep finding next letter
+            if(p->children[index])
+            {
+             p =p->children[index];
+            }
+            //if element doesnt found
+            else{
+                return false;
+            }
+        }
+        
+            //if v are out of loop after all matches then value =1
+            if(p->value!=0)
+            {//search done
+                return true;
+            }
+            else{
+                return false;
+            }
+             
+        
+    }
+    
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    bool startsWith(string prefix) {
+        TrieNode* p = root;
+        int len = prefix.size();
+        
+        for(int i =0;i<len;i++)
+        {
+            int index = prefix[i]-'a';
+            if(p ->children[index])
+            {
+                p=p->children[index];
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+        
+    }
+};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
+ */
