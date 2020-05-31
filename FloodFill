@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<vector<int>> floodfillresult(vector<vector<int>>& image, int sr, int sc, int newColor , int cmp)
+    {
+        // step 1 change sr,sc color
+        
+        image[sr][sc] = newColor;
+        //Step 2 check all 4 sides
+        // if row or column exist and and if value at that point is equal to sr,sc point value or not
+        
+        if((sc+1<image[sr].size()) && image[sr][sc+1]==cmp)
+        {
+            floodfillresult(image,sr,sc+1,newColor,cmp);
+         }
+        
+         if((sc-1>=0) && image[sr][sc-1]==cmp)
+        {
+            floodfillresult(image,sr,sc-1,newColor,cmp);
+         }
+         if((sr+1<image.size()) && image[sr+1][sc]==cmp)
+        {
+            floodfillresult(image,sr+1,sc,newColor,cmp);
+         }
+         if((sr-1>=0) && image[sr-1][sc]==cmp)
+        {
+            floodfillresult(image,sr-1,sc,newColor,cmp);
+         }
+        
+        return image;
+    }
+    
+    
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+        
+        // base case
+        if(image[sr][sc]==newColor)
+        {
+            return image;
+        }
+        
+        int cmp = image[sr][sc];
+        
+        //call recursive self created function
+        return floodfillresult(image,sr,sc,newColor,cmp);
+        
+    }
+};
