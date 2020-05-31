@@ -1,0 +1,63 @@
+class Solution {
+public:
+    int singleNonDuplicate(vector<int>& nums) {
+     //28ms
+        /*  
+     unordered_map<int,int> m;
+        
+        for(int i=0;i<nums.size();i++)
+        {
+            m[nums[i]]++;
+        }
+        
+        for(int i=0; i<nums.size();i++)
+        {
+            if(m[nums[i]] ==1)
+                return nums[i];
+        }
+        return-1;*/
+        
+        /* 20ms
+        if(nums.size()==1)
+        {
+            return nums[0];
+        }
+        int i=0;
+        while(i<nums.size())
+        {
+            if(nums[i]==nums[i+1])
+            {
+                i = i+2;
+            }
+             else{
+                 return nums[i];
+             }
+        }
+        return -1;
+    }*/
+      
+        //best 12 ms
+  /*  int left = 0, right = nums.size() - 1;
+	while(left < right){
+		int mid = (left + right)/2;
+		if((mid % 2 == 0 && nums[mid] == nums[mid + 1]) || (mid % 2 == 1 && nums[mid] == nums[mid - 1]))
+			left = mid + 1;
+		else
+			right = mid;
+	}
+	return nums[left];
+    }*/
+        //xor opertion
+        //16ms
+        
+        int ans=0;
+        
+        for(int i=0;i<nums.size();i++)
+        {
+            ans = nums[i] ^ ans;
+        }
+        return ans;
+    }
+        
+ 
+};
