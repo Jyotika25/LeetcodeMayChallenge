@@ -1,0 +1,50 @@
+class Solution {
+public:
+    int Simplemaxsubarraysum(vector<int>& A)
+    {
+        int currentmax = A[0];
+        int totalmax = A[0];
+        
+        for(int i =1; i<A.size();i++)
+        {
+            currentmax = max(A[i], currentmax+A[i]);
+            totalmax = max(currentmax,totalmax);
+        }
+        return totalmax;
+    }
+    
+    int maxSubarraySumCircular(vector<int>& A) {
+        int count = 0;
+        
+        //base case
+        //count negative elements
+        
+        for(int i=0;i<A.size();i++)
+        {
+            if(A[i]<0)
+                count++;
+        }
+        
+        int originalanswer ;
+        originalanswer = Simplemaxsubarraysum(A);
+        
+        int sum = 0;
+        //kadanes algo
+        
+        for(int i=0;i<A.size();i++)
+        {
+            sum = sum+A[i];
+            A.at(i) = -A[i];
+        }
+        //kadanes answer
+        int secondanswer = Simplemaxsubarraysum(A);
+        
+        if(count == A.size())
+        {
+            return originalanswer;
+        }
+        else{
+            return max(originalanswer , sum+secondanswer);
+        }
+    }
+};
