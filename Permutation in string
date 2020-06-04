@@ -1,0 +1,48 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+     
+        if(s1.length()==NULL || s2.length()==NULL)
+        {
+            return false;
+        }
+        
+        int left = 0;
+        int counter = 0;
+         map<char,int> fmap;
+        
+        for(int i=0;i<s1.length();i++)
+        {
+            fmap[s1[i]]++;
+        }
+        
+        for(int i=0;i<s2.length();i++)
+        {
+            char current = s2.at(i);
+            if(fmap.find(current)!= fmap.end())
+            {   fmap[current]--;
+                if(fmap[current]>=0)
+                {
+                    counter++;
+                }
+            }
+            
+            if(counter == s1.length()){
+                return true;
+            }
+            if(i>=s1.length()-1)
+            {
+                char leftchar = s2.at(left++);
+                if(fmap.find(leftchar)!=fmap.end()){
+                    if(fmap[leftchar]>=0){
+                        counter--;
+                    }
+                    fmap[leftchar]++;
+                }
+            }
+            
+            }
+        return false;
+        
+    }
+};
