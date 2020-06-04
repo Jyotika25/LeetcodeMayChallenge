@@ -1,0 +1,50 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        
+        vector<int> output;
+        
+        if(s.length()==NULL || p.length()==NULL)
+        {
+            return output;
+        }
+        
+        int left = 0;
+        int counter = 0;
+         map<char,int> fmap;
+        
+        for(int i=0;i<p.length();i++)
+        {
+            fmap[p[i]]++;
+        }
+        
+        for(int i=0;i<s.length();i++)
+        {
+            char current = s.at(i);
+            if(fmap.find(current)!= fmap.end())
+            {   fmap[current]--;
+                if(fmap[current]>=0)
+                {
+                    counter++;
+                }
+            }
+            
+            if(counter == p.length()){
+                output.push_back(left);
+            }
+            if(i>=p.length()-1)
+            {
+                char leftchar = s.at(left++);
+                if(fmap.find(leftchar)!=fmap.end()){
+                    if(fmap[leftchar]>=0){
+                        counter--;
+                    }
+                    fmap[leftchar]++;
+                }
+            }
+            
+            }
+        return output;
+        
+    }
+};
