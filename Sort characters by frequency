@@ -1,0 +1,50 @@
+class Solution {
+public:
+    string frequencySort(string s) {
+        /* create a map and store all frequencies of character
+        make a vector pair and storethe map data in it
+        then sortvector on basis of frequency
+        now traverse the vector and append the string number of times its frequency is*/
+        
+        /* vector <pair<int,char>> v;
+        map <int,char> m;
+        
+        for(int i=0;i<s.size();i++)
+        {
+            m[s[i]]++;
+        }
+        
+       
+       map<int, char> :: iterator i = m.begin();
+            
+            while(i!=m.end())
+            {
+                v.push_back({i->second,i->first});
+                i++;
+            }
+        //sorting in reverse order i.e descending to get max frequency in start
+        sort(v.rbegin(), v.rend());
+        
+        string answer ="";
+        
+        for(int i=0;i<v.size();i++)
+        {
+         int t = v[i].first;
+            while(t--)
+                answer +=v[i].second;
+             }
+        return answer;*/
+       
+        int Count[256]={};
+        
+        for(auto i:s)        Count[i]++;       // counting frequency of characters 
+           
+        sort(s.begin(),s.end(),[&Count](char &a, char &b)
+             {
+                 return (Count[a] != Count[b]) ? Count[a] > Count[b] : a<b;     
+                 // if count[a] is NOT EQUALS to count[b] then sort acc to freq , Else Sort acc to Character
+             });
+        return s;
+   
+    }
+};
